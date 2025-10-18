@@ -18,7 +18,7 @@ pipeline{
                 echo 'Setting up virtual environment...'
                 sh """
                 python3 -m venv venv
-                source venv/bin/activate
+                . venv/bin/activate
                 python -m pip install --upgrade pip
                 pip install -r requirements.txt
                 """
@@ -35,7 +35,7 @@ pipeline{
                     steps{
                         echo 'Running test_app.py...'
                         sh """
-                        source venv/bin/activate
+                        . venv/bin/activate
                         python -m pytest test_app.py -v
                         """
                     }
@@ -44,7 +44,7 @@ pipeline{
                     steps{
                         echo 'Running test_app_2.py...'
                         sh """
-                        source venv/bin/activate
+                        . venv/bin/activate
                         python -m pytest test_app_2.py -v
                         """
                     }
@@ -55,7 +55,7 @@ pipeline{
             steps{
                 echo 'Deploying application...'
                 sh """
-                source venv/bin/activate
+                . venv/bin/activate
                 gunicorn --bind 127.0.0.1:5000 app:app &
                 echo Gunicorn started on http://127.0.0.1:5000
                 """
