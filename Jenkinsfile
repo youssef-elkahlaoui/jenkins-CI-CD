@@ -1,16 +1,16 @@
-
-pipline{
+pipeline {
     agent any
 
-    stages{
-        stage(Checkout){
-            steps{
+    stages {
+        stage('Checkout') {
+            steps {
                 echo 'Checking out code...'
                 git branch: 'main', url: 'https://github.com/youssef-elkahlaoui/jenkins-CI-CD'
             }
         }
-        stage(Setup Venv){
-            steps{
+
+        stage('Setup Venv') {
+            steps {
                 echo 'Setting up virtual environment...'
                 bat """
                 python -m venv venv
@@ -20,8 +20,9 @@ pipline{
                 """
             }
         }
-        stage(Run Tests){
-            steps{
+
+        stage('Run Tests') {
+            steps {
                 echo 'Running tests...'
                 bat """
                 .\\venv\\Scripts\\activate
@@ -29,8 +30,9 @@ pipline{
                 """
             }
         }
-        stage(Deploy){
-            steps{
+
+        stage('Deploy') {
+            steps {
                 echo 'Deploying application...'
                 bat """
                 .\\venv\\Scripts\\activate
