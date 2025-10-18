@@ -13,9 +13,9 @@ class TestApp(unittest.TestCase):
         self.assertIn(b'Flask CI/CD Demo using Jenkins', response.data)
 
     def test_hello_with_name(self):
-        response = self.client.post('/hello', data={'username': 'Amine'})
+        response = self.client.post('/hello', data={'username': 'youssef'})
         self.assertEqual(response.status_code, 200)
-        self.assertIn(b'Hello Amine', response.data)
+        self.assertIn(b'Hello youssef', response.data)
 
     def test_hello_without_name(self):
         response = self.client.post('/hello', data={'username': ''})
