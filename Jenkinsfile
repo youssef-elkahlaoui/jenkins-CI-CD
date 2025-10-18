@@ -16,9 +16,9 @@ pipeline{
         stage('Setup Venv'){
             steps{
                 echo 'Setting up virtual environment...'
-                bat """
-                python -m venv venv
-                .\\venv\\Scripts\\activate
+                sh """
+                python3 -m venv venv
+                source venv/bin/activate
                 python -m pip install --upgrade pip
                 pip install -r requirements.txt
                 """
@@ -34,8 +34,8 @@ pipeline{
                 stage('Test App 1') {
                     steps{
                         echo 'Running test_app.py...'
-                        bat """
-                        .\\venv\\Scripts\\activate
+                        sh """
+                        source venv/bin/activate
                         python -m pytest test_app.py -v
                         """
                     }
@@ -43,8 +43,8 @@ pipeline{
                 stage('Test App 2') {
                     steps{
                         echo 'Running test_app_2.py...'
-                        bat """
-                        .\\venv\\Scripts\\activate
+                        sh """
+                        source venv/bin/activate
                         python -m pytest test_app_2.py -v
                         """
                     }
@@ -54,10 +54,10 @@ pipeline{
         stage('Deploy'){
             steps{
                 echo 'Deploying application...'
-                bat """
-                .\\venv\\Scripts\\activate
-                start /B gunicorn --bind 127.0.1.1:5000 app:app > gunicorn.log 2>&1 &
-                echo Gunicorn started on http://127.0.1.1:5000
+                sh """
+                source venv/bin/activate
+                gunicorn --bind 127.0.0.1:5000 app:app &
+                echo Gunicorn started on http://127.0.0.1:5000
                 """
             }
         }
