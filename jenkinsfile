@@ -1,0 +1,22 @@
+pipline{
+    agent any
+
+    stages{
+        stage(Checkout){
+            steps{
+                echo 'Checking out code...'
+                git branch: 'main', url: 'https://github.com/allaliamine/jenkins-CI-CD.git'
+            }
+        }
+        stage(Setup Venv){
+            steps{
+                echo 'Testing...'
+            }
+        }
+        stage(Run Tests){
+            steps{
+                echo 'Running tests...'
+            }
+        }
+    }
+}
