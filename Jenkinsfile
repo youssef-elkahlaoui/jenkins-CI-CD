@@ -26,7 +26,7 @@ pipeline {
                 echo 'Running tests...'
                 sh """
                 . venv/bin/activate
-                python -m pytest tests_app.py -v
+                python -m pytest test_app.py -v
                 """
             }
         }
