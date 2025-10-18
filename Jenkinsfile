@@ -14,7 +14,7 @@ pipeline {
                 echo 'Setting up virtual environment...'
                 sh """
                 python3 -m venv venv
-                source venv/bin/activate
+                . venv/bin/activate
                 python -m pip install --upgrade pip
                 pip install -r requirements.txt
                 """
@@ -25,7 +25,7 @@ pipeline {
             steps {
                 echo 'Running tests...'
                 sh """
-                source venv/bin/activate
+                . venv/bin/activate
                 python -m pytest tests_app.py -v
                 """
             }
@@ -35,7 +35,7 @@ pipeline {
             steps {
                 echo 'Deploying application...'
                 sh """
-                source venv/bin/activate
+                . venv/bin/activate
                 nohup gunicorn --bind 0.0.0.0:5000 app:app > gunicorn.log 2>&1 &
                 echo Gunicorn started on http://localhost:5000
                 """
