@@ -5,6 +5,7 @@ app = Flask(__name__)
 def home():
     return render_template("index.html", message=None, sum_result=None)
 
+
 @app.route('/hello', methods=['POST'])
 def hello():
     name = request.form.get('username','').strip()
